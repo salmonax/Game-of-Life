@@ -22,18 +22,26 @@ class Grid
     end
   end  
 
-  def show_around(x,y)
+  def show_around
     neighbors = []
-    (-1..1).each do |offset_x|
-      (-1..1).each do |offset_y|
-        next if offset_x == 0 && offset_y == 0
-        wrapped_x = (x+offset_x) % @length
-        wrapped_y = (y+offset_y) % @length
-        neighbors << @grid[wrapped_x][wrapped_y]
+    @grid.each do |cell|
+      cell.neighbors.each do |neighbor_coordinates|
+        neighbors << @grid[cell.x + neighbor_coordinates[0]][cell.y + neighbor_coordinates[1]]
       end
     end
-    @grid[x][y].add_neighbors(neighbors)
-    neighbors
+
+
+    # neighbors = []
+    # (-1..1).each do |offset_x|
+    #   (-1..1).each do |offset_y|
+    #     next if offset_x == 0 && offset_y == 0
+    #     wrapped_x = (x+offset_x) #% @length
+    #     wrapped_y = (y+offset_y) #% @length
+    #     neighbors.push(@grid[wrapped_x][wrapped_y])
+    #   end
+    # end
+    # @grid[x][y].add_neighbors(neighbors)
+    # neighbors
   end
 
   def display

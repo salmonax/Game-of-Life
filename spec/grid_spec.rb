@@ -27,13 +27,14 @@ describe Grid do
     end
   end
 
+
   context '#show_around' do
     it 'inserts an array of neighbors into each cell object after the grid is built' do
-      Kernel.stub(:rand).and_return(0,1,2,3,4,5,6,7,8)
+      Kernel.stub(:rand).and_return(1,0,1,2,3,4,5,6,7,8)
       grid = Grid.new(3)
       grid.build
       statuses = []
-      shown_around = grid.show_around(1,1)
+      shown_around = grid.show_around(Cell.new(1,1))
       shown_around.each { |cell| statuses << cell.status }
       statuses.should eq [0,1,2,3,5,6,7,8]
     end
@@ -49,6 +50,36 @@ describe Grid do
     end
   end
 
-  context 'give_neighbors'
+  context '#tick' do
+    it 'tells all the cells to evolve' do 
+      Kernel.stub(:rand).and_return(1,0,1,0,0,0,0,1,0)
+      grid = Grid.new(3)
+      grid.build
+      grid.give_neighbors
+      grid.tick
+      grid.display.should eq "1 1 1 \n 1 1 1 \n 1 1 1 \n 1 1 1 \n"
+    end
+  end
+
+
 
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

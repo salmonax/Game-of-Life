@@ -5,11 +5,12 @@ require './lib/grid'
 
 "Watch this..."
 
-grid = Grid.new(4)
+grid = Grid.new(3)
 
 puts "Please press enter to evolve."
  
 
 grid.build
 puts grid.display
-# grid.tick
+grid.give_neighbors
+grid.tick
