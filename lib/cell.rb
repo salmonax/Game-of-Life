@@ -1,14 +1,14 @@
 class Cell
-  attr_reader :status
+  attr_reader :status, :new_status
   attr_reader :x
   attr_reader :y
-  attr_reader :neighbors
 
   def initialize(x,y,life=1)
     @x = x
     @y = y
     @status = Kernel.rand(life)
-    @neighbors = [[-1,-1],[-1,0][-1,1],[0,-1],[0,1],[1,-1][1,0],[1,1]]
+    @neighbors = []
+    @new_status = @status
   end
 
   def add_neighbors(neighbor_array)
@@ -17,9 +17,9 @@ class Cell
 
   def switch
     if @status == 0
-      @status = 1
+      @new_status = 1
     else
-      @status = 0
+      @new_status = 0
     end  
   end 
 
@@ -29,6 +29,10 @@ class Cell
       alive += 1 if cell.status == 1
     end
     alive
+  end
+
+  def bake
+    @status = @new_status
   end
 
   def evolve

@@ -8,10 +8,10 @@ describe Cell do
     end
   end
   context '#switch' do 
-    it 'should switch life status' do
+    it 'should prepare a new life status, waiting for a bake to bake it' do
       cell = Cell.new(1,1)
       cell.switch
-      cell.status.should eq 1
+      cell.new_status.should eq 1
     end
   end
 
