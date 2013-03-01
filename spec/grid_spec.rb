@@ -11,6 +11,7 @@ describe Grid do
   context '#display_grid' do 
     it 'prints the grid all pretty like' do
       Cell.any_instance.stub(:status).and_return(0)
+      Cell.any_instance.stub(:symbol).and_return('0')
       grid = Grid.new(4)
       grid.build
       grid.display.should eq "0 0 0 0 \n0 0 0 0 \n0 0 0 0 \n0 0 0 0 \n"
@@ -61,6 +62,67 @@ describe Grid do
       grid.bake_all
       grid.display.should eq "1 1 1 \n1 1 1 \n1 1 1 \n"
     end
+  end
+
+  context '#stamp_pattern' do
+    it 'stamps the grid with a given cell pattern, beginning at index [0][0]' do
+      grid = Grid.new(5)
+      grid.build
+      grid.give_neighbors
+      #puts grid.grid
+      glider_formation = [[0,0,0,0,0],
+                          [0,0,1,0,0],
+                          [0,0,0,1,0],
+                          [0,1,1,1,0],
+                          [0,0,0,0,0]]
+      grid.stamp_pattern(glider_formation,0,0)
+      grid.display.should eq "0 0 0 0 0 \n0 0 1 0 0 \n0 0 0 1 0 \n0 1 1 1 0 \n0 0 0 0 0 \n"
+    end
+
+    it 'stamps the grid with a given cell pattern and offset, beginning at index [1][1]' do
+      Kernel.stub(:rand).and_return(0)
+      grid = Grid.new(6)
+      grid.build
+      grid.give_neighbors
+      #puts grid.grid
+      glider_formation = [[0,0,0,0,0],
+                          [0,0,1,0,0],
+                          [0,0,0,1,0],
+                          [0,1,1,1,0],
+                          [0,0,0,0,0]]
+      grid.stamp_pattern(glider_formation,1,1)
+      grid.display.should eq "0 0 0 0 0 0 \n0 0 0 0 0 0 \n0 0 0 1 0 0 \n0 0 0 0 1 0 \n0 0 1 1 1 0 \n0 0 0 0 0 0 \n"
+    end
+
+    it 'stamps the grid with a given cell pattern and offset, with wrapping, beginning at index [3][0]' do
+      Kernel.stub(:rand).and_return(0)
+      grid = Grid.new(5)
+      grid.build
+      grid.give_neighbors
+      #puts grid.grid
+      glider_formation = [[0,0,0,0,0],
+                          [0,0,1,0,0],
+                          [0,0,0,1,0],
+                          [0,1,1,1,0],
+                          [0,0,0,0,0]]
+      grid.stamp_pattern(glider_formation,3,0)
+      grid.display.should eq "0 0 0 1 0 \n0 1 1 1 0 \n0 0 0 0 0 \n0 0 0 0 0 \n0 0 1 0 0 \n"
+    end
+
+    it 'stamps the grid with a given cell pattern and offset, with wrapping, beginning at index [2][2]' do
+      Kernel.stub(:rand).and_return(0)
+      grid = Grid.new(5)
+      grid.build
+      grid.give_neighbors
+      glider_formation = [[0,0,0,0,0],
+                          [0,0,1,0,0],
+                          [0,0,0,1,0],
+                          [0,1,1,1,0],
+                          [0,0,0,0,0]]
+      grid.stamp_pattern(glider_formation,2,2)
+      grid.display.should eq "1 0 0 1 1 \n0 0 0 0 0 \n0 0 0 0 0 \n0 0 0 0 1 \n1 0 0 0 0 \n"
+    end
+
   end
 
 

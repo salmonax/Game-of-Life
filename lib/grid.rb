@@ -1,5 +1,5 @@
 class Grid
-
+  attr_reader :length
   def initialize(length)
     @length = length
     @grid = Array.new(@length) {Array.new(@length) {0}}
@@ -7,8 +7,8 @@ class Grid
 
   def build
     built_grid = @grid.each_with_index do |row, xi|
-      row.each_with_index do |cell, yi|
-        @grid[xi][yi] = Cell.new(xi, yi, 2)
+      @grid.each_with_index do |column, yi|
+        @grid[xi][yi] = Cell.new(xi, yi, 1)
       end
     end
     built_grid
@@ -22,17 +22,17 @@ class Grid
     end
   end  
 
-  def show_around(x,y)
+  def show_around(row,column)
     neighbors = []
-    (-1..1).each do |offset_x|
-      (-1..1).each do |offset_y|
-        next if offset_x == 0 && offset_y == 0
-        wrapped_x = (x+offset_x) % @length
-        wrapped_y = (y+offset_y) % @length
-        neighbors.push(@grid[wrapped_x][wrapped_y])
+    (-1..1).each do |offset_row|
+      (-1..1).each do |offset_column|
+        next if offset_row == 0 && offset_column == 0
+        wrapped_row = (row+offset_row) % @length
+        wrapped_column = (column+offset_column) % @length
+        neighbors.push(@grid[wrapped_row][wrapped_column])
       end
     end
-    @grid[x][y].add_neighbors(neighbors)
+    @grid[row][column].add_neighbors(neighbors)
     neighbors
   end
 
@@ -44,16 +44,46 @@ class Grid
     @grid.flatten.each { |cell| cell.evolve }
   end
 
-  def display         
+  def display(live="1",dead="0")         
     display_string = ""
     @grid.each do |row|
       row.each do |cell| 
-        display_string << cell.status.to_s << " "
+        display_string << cell.symbol(live,dead) << " "
       end
       display_string << "\n"
     end
     display_string
   end
 
-  
+  # def stamp_pattern(pattern,row_index=0,column_index=0)
+  #   pattern.each_index do |i|
+  #     pattern.each_index do |k|
+  #       @grid[i+row_index][k+column_index].force_status(pattern[i][k])
+  #     end
+  #   end
+  # end
+
+  def stamp_pattern(pattern,row_index=0,column_index=0)
+    pattern.each_index do |i|
+      pattern.each_index do |k|
+        @grid[(i+row_index) % @length][(k+column_index) % @length].force_status(pattern[i][k])
+      end
+    end
+  end
+
+  # def stamp_pattern(pattern,row_index=0,column_index=0)
+  #   (pattern.length-1).times do |row|
+  #     (pattern.length-1).times do |column|
+  #       target_row = (row_index+row) % @length 
+  #       target_column = (column_index+row) % @length
+  #       #puts @grid[target_row][target_column] 
+  #       @grid[target_row][target_column].force_status(pattern[row][column])
+  #     end
+  #   end
+  # end
+      # (row_index..(row_index + pattern.length)).each do |row|
+      # (column_index..(column_index + pattern.length)).each do |column|
+      #     @grid[row % @length][column % @length].force_status
+    #   end
+    # end
 end

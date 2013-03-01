@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 describe Cell do 
+  context '#force_status' do
+    it 'overwrites the cells current life status with the argument that is passed' do
+      cell = Cell.new(1,1)
+      cell.force_status(1)
+      cell.status.should eq 1
+    end
+  end
+  
   context '#status' do 
     it 'initializes with cordinates and life status' do 
       cell = Cell.new(1,1)
@@ -63,4 +71,28 @@ describe Cell do
     end
   end    
 end
+
+[[0,0,0,0,0],
+ [0,0,1,0,0],
+ [0,0,0,1,0],
+ [0,1,1,1,0],
+ [0,0,0,0,0]]
+
+[[0,0,0,0,0],
+ [0,0,1,1,0],
+ [0,1,0,1,0],
+ [0,0,0,1,0],
+ [0,0,0,0,0]]
+
+[[0,0,0,0,0],
+ [0,0,1,0,0],
+ [0,0,0,1,0],
+ [0,1,1,1,0],
+ [0,0,0,0,0]]
+
+[[0,0,0,0,0],
+ [0,0,1,0,0],
+ [0,0,0,1,0],
+ [0,1,1,1,0],
+ [0,0,0,0,0]]
   

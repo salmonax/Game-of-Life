@@ -11,6 +11,11 @@ class Cell
     @new_status = @status
   end
 
+  def force_status(status)
+    @status = status.to_i
+    # p self.to_s + " " + status.to_s + " " + @status.to_s
+  end 
+
   def add_neighbors(neighbor_array)
     @neighbors = neighbor_array
   end
@@ -25,9 +30,7 @@ class Cell
 
   def count_alive
     alive = 0
-    @neighbors.each do |cell|
-      alive += 1 if cell.status == 1
-    end
+    @neighbors.each { |cell| alive += cell.status }
     alive
   end
 
@@ -43,6 +46,10 @@ class Cell
     else
       @status
     end
+  end
+
+  def symbol(live,dead)
+    @status == 1 ? live.to_s : dead.to_s
   end
 
 end
