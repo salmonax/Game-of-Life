@@ -20,17 +20,11 @@ class Cell
   end
 
   def switch
-    if @status == 0
-      @new_status = 1
-    else
-      @new_status = 0
-    end  
+    @new_status = (@status == 0 ? 1 : 0)
   end 
 
   def count_alive
-    alive = 0
-    @neighbors.each { |cell| alive += cell.status }
-    alive
+    @neighbors.inject(0) { |sum, cell| sum + cell.status }
   end
 
   def bake
@@ -38,9 +32,7 @@ class Cell
   end
 
   def evolve
-    if (count_alive > 3 || count_alive < 2) && @status == 1
-      switch
-    elsif count_alive == 3 && @status == 0
+    if ((count_alive > 3 || count_alive < 2) && @status == 1) || (count_alive == 3 && @status == 0)
       switch
     else
       @new_status = @status

@@ -6,12 +6,12 @@ class Grid
   end
 
   def build
-    built_grid = @grid.each_with_index do |row, xi|
-      @grid.each_with_index do |column, yi|
+    @length.times do |xi|
+      @length.times do |yi|
         @grid[xi][yi] = Cell.new(xi, yi, 1)
       end
     end
-    built_grid
+    @grid
   end
 
   def give_neighbors
@@ -54,7 +54,7 @@ class Grid
     end
     display_string
   end
-  
+
   def stamp_pattern(pattern,row_index=0,column_index=0)
     pattern.each_index do |i|
       pattern.each_index do |k|
