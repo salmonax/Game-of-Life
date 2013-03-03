@@ -9,7 +9,7 @@ puts "Watch this..."
 puts "How big do you want your grid to be? (hint: we've decided for you.)"
 #grid = Grid.new(gets.chomp.to_i)
 
-grid = Grid.new(gets.chomp.to_i * 0 + 8)
+grid = Grid.new(gets.chomp.to_i * 0 + 20)
 puts "Please press enter to evolve."
 
 
@@ -22,12 +22,14 @@ middle = grid.length/2
 
 grid.build
 grid.give_neighbors
+
 grid.stamp_pattern(gliderSE,middle,middle)
-# grid.stamp_pattern(gliderSW,middle,middle-4)
-# grid.stamp_pattern(gliderNW,middle-4,middle-4)
-# grid.stamp_pattern(gliderNE,middle-4,middle)
+grid.stamp_pattern(gliderSW,middle,middle-4)
+grid.stamp_pattern(gliderNW,middle-4,middle-4)
+grid.stamp_pattern(gliderNE,middle-4,middle)
 
 puts grid.display("@","_")
+
 
 puts "All right, kids, hit enter to iterate!!! WOOO!"
 until gets.chomp == 'e'

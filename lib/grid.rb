@@ -1,5 +1,5 @@
 class Grid
-  attr_reader :length
+  attr_reader :length, :grid
   def initialize(length)
     @length = length
     @grid = Array.new(@length) {Array.new(@length) {0}}
@@ -54,15 +54,7 @@ class Grid
     end
     display_string
   end
-
-  # def stamp_pattern(pattern,row_index=0,column_index=0)
-  #   pattern.each_index do |i|
-  #     pattern.each_index do |k|
-  #       @grid[i+row_index][k+column_index].force_status(pattern[i][k])
-  #     end
-  #   end
-  # end
-
+  
   def stamp_pattern(pattern,row_index=0,column_index=0)
     pattern.each_index do |i|
       pattern.each_index do |k|
@@ -71,19 +63,4 @@ class Grid
     end
   end
 
-  # def stamp_pattern(pattern,row_index=0,column_index=0)
-  #   (pattern.length-1).times do |row|
-  #     (pattern.length-1).times do |column|
-  #       target_row = (row_index+row) % @length 
-  #       target_column = (column_index+row) % @length
-  #       #puts @grid[target_row][target_column] 
-  #       @grid[target_row][target_column].force_status(pattern[row][column])
-  #     end
-  #   end
-  # end
-      # (row_index..(row_index + pattern.length)).each do |row|
-      # (column_index..(column_index + pattern.length)).each do |column|
-      #     @grid[row % @length][column % @length].force_status
-    #   end
-    # end
 end

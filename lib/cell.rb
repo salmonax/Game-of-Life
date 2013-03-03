@@ -1,5 +1,5 @@
 class Cell
-  attr_reader :status, :new_status
+  attr_reader :status, :new_status, :neighbors
   attr_reader :x
   attr_reader :y
 
@@ -13,7 +13,6 @@ class Cell
 
   def force_status(status)
     @status = status.to_i
-    # p self.to_s + " " + status.to_s + " " + @status.to_s
   end 
 
   def add_neighbors(neighbor_array)
@@ -44,7 +43,7 @@ class Cell
     elsif count_alive == 3 && @status == 0
       switch
     else
-      @status
+      @new_status = @status
     end
   end
 
