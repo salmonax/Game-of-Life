@@ -1,5 +1,5 @@
 class Cell
-  attr_reader :status, :new_status, :neighbors
+  attr_reader :status
   attr_reader :x
   attr_reader :y
 
