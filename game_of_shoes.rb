@@ -56,7 +56,7 @@ class ShoesGrid
   end
 end
 
-Shoes.app height: 330, width: 300 do
+Shoes.app height: 330, width: 300, title: 'A Game of Shoes' do
   @display_slot = stack
   @shoes_grid = ShoesGrid.new(Grid.new(25),@display_slot)
   animate(15) do |frame|
