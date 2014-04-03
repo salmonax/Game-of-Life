@@ -3,7 +3,7 @@ class Cell
   attr_reader :x
   attr_reader :y
 
-  def initialize(x,y,life=1)
+  def initialize(x,y,life=2)
     @x = x
     @y = y
     @status = Kernel.rand(life)

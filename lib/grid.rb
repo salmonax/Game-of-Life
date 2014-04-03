@@ -8,7 +8,7 @@ class Grid
   def build
     @length.times do |xi|
       @length.times do |yi|
-        @grid[xi][yi] = Cell.new(xi, yi, 1)
+        @grid[xi][yi] = Cell.new(xi, yi)
       end
     end
     @grid
